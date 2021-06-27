@@ -5,7 +5,8 @@ import atexit
 from dataclasses import asdict
 import io
 import json
-from pathlib import Path
+# import pathlib
+from pathlib import Path, PurePath, PurePosixPath
 import platform
 import sys
 import webbrowser
@@ -70,8 +71,11 @@ def save_tiff(path, image):
         sys.exit(1)
 
 
-def save_image(path, image):
+def save_image(path, image, iter):
     path = Path(path)
+    begin = PurePosixPath(path).stem
+    end = PurePosixPath(path).suffix
+    path = Path(begin+'_iter_'+str(iter).zfill(3)+end)
     tqdm.write(f'Writing image to {path}.')
     if isinstance(image, Image.Image):
         save_pil(path, image)
@@ -125,12 +129,12 @@ class Callback:
         if iterate.i == iterate.i_max:
             self.progress.close()
             if max(iterate.w, iterate.h) != self.args.end_scale:
-                save_image(self.args.output, self.st.get_image(self.image_type))
+                save_image(self.args.output, self.st.get_image(self.image_type), iterate.i)
             else:
                 if self.web_interface is not None:
                     self.web_interface.put_done()
         elif iterate.i % self.args.save_every == 0:
-            save_image(self.args.output, self.st.get_image(self.image_type))
+            save_image(self.args.output, self.st.get_image(self.image_type), iterate.i)
 
     def close(self):
         if self.progress is not None:
