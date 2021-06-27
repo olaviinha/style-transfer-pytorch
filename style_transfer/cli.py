@@ -267,7 +267,7 @@ def main():
 
     output_image = st.get_image(image_type)
     if output_image is not None:
-        save_image(args.output, output_image, iter, true)
+        save_image(args.output, output_image, iter, True)
     with open('trace.json', 'w') as fp:
         json.dump(callback.get_trace(), fp, indent=4)
 
