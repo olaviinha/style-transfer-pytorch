@@ -71,11 +71,12 @@ def save_tiff(path, image):
         sys.exit(1)
 
 
-def save_image(path, image, iter):
+def save_image(path, image, iter, final=False):
     path = Path(path)
-    begin = PurePosixPath(path).stem
-    end = PurePosixPath(path).suffix
-    path = Path(begin+'_iter_'+str(iter).zfill(3)+end)
+    if final is False:
+        begin = PurePosixPath(path).stem
+        end = PurePosixPath(path).suffix
+        path = Path(begin+'_iter_'+str(iter).zfill(3)+end)
     tqdm.write(f'Writing image to {path}.')
     if isinstance(image, Image.Image):
         save_pil(path, image)
@@ -266,7 +267,7 @@ def main():
 
     output_image = st.get_image(image_type)
     if output_image is not None:
-        save_image(args.output, output_image)
+        save_image(args.output, output_image, iter, true)
     with open('trace.json', 'w') as fp:
         json.dump(callback.get_trace(), fp, indent=4)
 
