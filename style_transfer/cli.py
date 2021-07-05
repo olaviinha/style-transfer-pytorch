@@ -218,20 +218,19 @@ def main():
     if not devices:
         devices = [torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')]
     if len(set(device.type for device in devices)) != 1:
-        print('Devices must all be the same type.')
+        # print('Devices must all be the same type.')
         sys.exit(1)
     if not 1 <= len(devices) <= 2:
-        print('Only 1 or 2 devices are supported.')
+        # print('Only 1 or 2 devices are supported.')
         sys.exit(1)
-    print('Using devices:', ' '.join(str(device) for device in devices))
+    # print('Using devices:', ' '.join(str(device) for device in devices))
 
     if devices[0].type == 'cpu':
-        print('CPU threads:', torch.get_num_threads())
+        # print('CPU threads:', torch.get_num_threads())
     if devices[0].type == 'cuda':
         for i, device in enumerate(devices):
             props = torch.cuda.get_device_properties(device)
-            print(f'GPU {i} type: {props.name} (compute {props.major}.{props.minor})')
-            print(f'GPU {i} RAM:', round(props.total_memory / 1024 / 1024), 'MB')
+            print(f'GPU {i} type: {props.name} (compute {props.major}.{props.minor}), 'RAM:', round(props.total_memory / 1024 / 1024), 'MB')
 
     end_scale = int(args.end_scale.rstrip('+'))
     if args.end_scale.endswith('+'):
@@ -247,7 +246,7 @@ def main():
         torch.tensor(0).to(device)
     torch.manual_seed(args.random_seed)
 
-    print('Loading model...')
+    # print('Loading model...')
     st = StyleTransfer(devices=devices, pooling=args.pooling)
     callback = Callback(st, args, image_type=image_type, web_interface=web_interface)
     atexit.register(callback.close)
