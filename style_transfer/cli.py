@@ -16,8 +16,7 @@ from PIL import Image, ImageCms
 from tifffile import TIFF, TiffWriter
 import torch
 import torch.multiprocessing as mp
-# from tqdm import tqdm
-from tqdm.autonotebook import tqdm as tqdm
+from tqdm.autonotebook import tqdm
 
 from . import srgb_profile, StyleTransfer, WebInterface
 
