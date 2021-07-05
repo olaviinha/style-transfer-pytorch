@@ -230,7 +230,7 @@ def main():
     if devices[0].type == 'cuda':
         for i, device in enumerate(devices):
             props = torch.cuda.get_device_properties(device)
-            print(f'GPU {i} type: {props.name} (compute {props.major}.{props.minor}), 'RAM:', round(props.total_memory / 1024 / 1024), 'MB')
+            print(f'GPU {i} type: {props.name} (compute {props.major}.{props.minor})')
 
     end_scale = int(args.end_scale.rstrip('+'))
     if args.end_scale.endswith('+'):
