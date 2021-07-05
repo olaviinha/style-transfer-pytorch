@@ -225,7 +225,7 @@ def main():
         sys.exit(1)
     # print('Using devices:', ' '.join(str(device) for device in devices))
 
-    if devices[0].type == 'cpu':
+#    if devices[0].type == 'cpu':
         # print('CPU threads:', torch.get_num_threads())
     if devices[0].type == 'cuda':
         for i, device in enumerate(devices):
