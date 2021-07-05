@@ -16,7 +16,8 @@ from PIL import Image, ImageCms
 from tifffile import TIFF, TiffWriter
 import torch
 import torch.multiprocessing as mp
-from tqdm import tqdm
+# from tqdm import tqdm
+from tqdm.autonotebook import tqdm as tqdm
 
 from . import srgb_profile, StyleTransfer, WebInterface
 
@@ -123,8 +124,9 @@ class Callback:
         if iterate.i == 1:
             self.progress = tqdm(total=iterate.i_max, dynamic_ncols=True)
         msg = 'Size: {}x{}, iteration: {}, loss: {:g}'
-        tqdm.write(msg.format(iterate.w, iterate.h, iterate.i, iterate.loss))
+        # tqdm.write(msg.format(iterate.w, iterate.h, iterate.i, iterate.loss))
         self.progress.update()
+
         if self.web_interface is not None:
             self.web_interface.put_iterate(iterate, self.st.get_image_tensor())
         if iterate.i == iterate.i_max:
