@@ -5,6 +5,6 @@ This is a **modified version** of an implementation of neural style transfer ([A
 ## Modified as follows:
 
 1. `--save_every` to a new file with current iteration number, rather than overwriting the same `--output` file.
-2. Output with each iteration displayed in new line replaced with single-line progress output (`tqdm.autonotebook`).
+2. Output message for each iteration in new line removed.
 
 See [the original repository](https://github.com/crowsonkb/style-transfer-pytorch) for details.
