@@ -147,9 +147,9 @@ class SumLoss(nn.ModuleList):
 
     def forward(self, *args, **kwargs):
         losses = [loss(*args, **kwargs) for loss in self]
-        if self.verbose:
-            for i, loss in enumerate(losses):
-                # print(f'({i}): {loss.item():g}')
+#        if self.verbose:
+#            for i, loss in enumerate(losses):
+#                print(f'({i}): {loss.item():g}')
         return sum(loss.to(losses[-1].device) for loss in losses)
 
 
