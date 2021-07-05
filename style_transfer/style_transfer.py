@@ -149,7 +149,7 @@ class SumLoss(nn.ModuleList):
         losses = [loss(*args, **kwargs) for loss in self]
         if self.verbose:
             for i, loss in enumerate(losses):
-                print(f'({i}): {loss.item():g}')
+                # print(f'({i}): {loss.item():g}')
         return sum(loss.to(losses[-1].device) for loss in losses)
 
 
@@ -353,7 +353,7 @@ class StyleTransfer:
             self.average = EMA(self.image, avg_decay)
             self.image.requires_grad_()
 
-            print(f'Processing content image ({cw}x{ch})...')
+            # print(f'Processing content image ({cw}x{ch})...')
             content_feats = self.model(content, layers=self.content_layers)
             content_losses = []
             for layer, weight in zip(self.content_layers, content_weights):
@@ -368,7 +368,7 @@ class StyleTransfer:
                     sw, sh = size_to_fit(image.size, style_size)
                 style = TF.to_tensor(image.resize((sw, sh), Image.LANCZOS))[None]
                 style = style.to(self.devices[0])
-                print(f'Processing style image ({sw}x{sh})...')
+                # print(f'Processing style image ({sw}x{sh})...')
                 style_feats = self.model(style, layers=self.style_layers)
                 # Take the weighted average of multiple style targets (Gram matrices).
                 for layer in self.style_layers:
